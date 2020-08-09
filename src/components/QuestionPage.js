@@ -10,7 +10,7 @@ class QuestionPage extends Component {
     }
   }
 
-  componentDidMoutn() {
+  componentDidMount() {
     window.scrollTo(0,0);
   }
 
