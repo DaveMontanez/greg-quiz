@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class QuestionPage extends Component {
   constructor(props) {
@@ -10,20 +10,23 @@ class QuestionPage extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { correctAnswer, setScore } = this.props;
-    const { selectedAnswer } = this.state;
-    const isCorrect = selectedAnswer === correctAnswer;
-
-    if (prevState.selectedAnswer !== selectedAnswer) {
-      setScore(isCorrect);
-    }
+  componentDidMoutn() {
+    window.scrollTo(0,0);
   }
 
   onValueChange = (value) => {
     this.setState({
       selectedAnswer: value
     });
+  }
+
+  handleClick = () => {
+    const { correctAnswer, setScore, nextPath } = this.props;
+    const { selectedAnswer } = this.state;
+    const isCorrect = selectedAnswer === correctAnswer;
+
+    setScore(isCorrect);
+    this.props.history.push(nextPath);
   }
   
   render() {
@@ -63,15 +66,15 @@ class QuestionPage extends Component {
             })}
           </ul>
         </form>
-        <Link
-          to={nextPath}
+        <button
+          onClick={this.handleClick}
           className="submit-btn"
         >
           Submit
-        </Link>
+        </button>
       </div>
     );
   }
 }
 
-export default QuestionPage;
+export default withRouter(QuestionPage);
